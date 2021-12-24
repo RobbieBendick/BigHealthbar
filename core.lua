@@ -3,6 +3,7 @@ local core = {};
 local FRAME_TEXTURE = [[Interface\AddOns\BigHealthbar\Textures\UI-TargetingFrame]]
 core.TargetFrame_CheckClassification    = TargetFrame_CheckClassification
 core.HealthBar_OnValueChanged           = HealthBar_OnValueChanged
+core.TargetFrame_CheckFaction           = TargetFrame_CheckFaction
 
 --Player Frame
 PlayerFrameBackground:SetHeight(41);
@@ -19,6 +20,14 @@ TargetFrameHealthBar:SetHeight(29);
 
 function print(v)
     DEFAULT_CHAT_FRAME:AddMessage(v);
+end
+
+function TargetFrame_CheckFaction()
+    core.TargetFrame_CheckFaction()
+    if not UnitIsPlayer("target") then
+        local r, g, b = TargetFrameNameBackground:GetVertexColor()
+        TargetFrameHealthBar:SetStatusBarColor(r, g, b)
+    end
 end
 
 function TargetFrame_CheckClassification()
